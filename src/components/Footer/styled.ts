@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import museumDark from '@assets/museum-dark.svg';
-import modsen from '@assets/modsen.svg';
+import museumDark from '@assets/logos/museum-dark.svg';
+import modsen from '@assets/logos/modsen.svg';
 
 export const FooterWrapper = styled.footer`
   padding: 32px 0;
