@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Lexend Deca', 'Inter', sans-serif;
     color: ${({ theme }) => theme.colors.primary};
+    background: ${({ theme }) => theme.colors.background};
   }
 `;
 
