@@ -21,7 +21,8 @@
       "@components/*": ["./components/*"],
       "@layouts/*": ["./layouts/*"],
       "@pages/*": ["./pages/*"],
-      "@router": ["./router"]
+      "@router": ["./router"],
+      "@theme": ["./theme"]
     }
   },
   "include": ["src", "./jest.setup.ts"]
