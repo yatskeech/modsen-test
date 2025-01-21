@@ -1,7 +1,13 @@
 import Container from '@components/Container';
-import home from '@assets/icons/home.svg';
-import bookmark from '@assets/icons/bookmark.svg';
-import { StyledWrapper, StyledInner, StyledList, MuseumLogo, StyledLink, Icon } from './styled.ts';
+import {
+  StyledWrapper,
+  StyledInner,
+  StyledList,
+  StyledLink,
+  StyledMuseumLogo,
+  StyledHomeIcon,
+  StyledBookmarkIcon,
+} from './styled.ts';
 import { Link } from 'react-router';
 
 function Header() {
@@ -10,19 +16,19 @@ function Header() {
       <Container>
         <StyledInner>
           <Link to="/">
-            <MuseumLogo />
+            <StyledMuseumLogo />
           </Link>
           <nav>
             <StyledList>
               <li>
                 <StyledLink to="/">
-                  <Icon src={home} />
+                  <StyledHomeIcon />
                   Home
                 </StyledLink>
               </li>
               <li>
                 <StyledLink to="/favorites">
-                  <Icon src={bookmark} />
+                  <StyledBookmarkIcon />
                   Your favorites
                 </StyledLink>
               </li>

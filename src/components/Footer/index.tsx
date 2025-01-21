@@ -1,5 +1,5 @@
 import Container from '@components/Container';
-import { StyledWrapper, StyledInner, MuseumLogo, ModsenLogo } from './styled.ts';
+import { StyledWrapper, StyledInner, StyledMuseumLogo, StyledModsenLogo } from './styled.ts';
 import { Link } from 'react-router';
 
 function Footer() {
@@ -8,10 +8,10 @@ function Footer() {
       <Container>
         <StyledInner>
           <Link to="/">
-            <MuseumLogo />
+            <StyledMuseumLogo />
           </Link>
           <Link to="https://www.modsen-software.com/">
-            <ModsenLogo />
+            <StyledModsenLogo />
           </Link>
         </StyledInner>
       </Container>
