@@ -1,21 +1,21 @@
 import Container from '@components/Container';
-import { FooterWrapper, Inner, MuseumLogo, ModsenLogo } from './styled.ts';
+import { StyledWrapper, StyledInner, MuseumLogo, ModsenLogo } from './styled.ts';
 import { Link } from 'react-router';
 
 function Footer() {
   return (
-    <FooterWrapper>
+    <StyledWrapper>
       <Container>
-        <Inner>
+        <StyledInner>
           <Link to="/">
             <MuseumLogo />
           </Link>
           <Link to="https://www.modsen-software.com/">
             <ModsenLogo />
           </Link>
-        </Inner>
+        </StyledInner>
       </Container>
-    </FooterWrapper>
+    </StyledWrapper>
   );
 }
 

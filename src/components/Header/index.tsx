@@ -1,36 +1,36 @@
 import Container from '@components/Container';
 import home from '@assets/icons/home.svg';
 import bookmark from '@assets/icons/bookmark.svg';
-import { HeaderWrapper, Inner, List, MuseumLogo, NavigationLink, Icon } from './styled.ts';
+import { StyledWrapper, StyledInner, StyledList, MuseumLogo, StyledLink, Icon } from './styled.ts';
 import { Link } from 'react-router';
 
 function Header() {
   return (
-    <HeaderWrapper>
+    <StyledWrapper>
       <Container>
-        <Inner>
+        <StyledInner>
           <Link to="/">
             <MuseumLogo />
           </Link>
           <nav>
-            <List>
+            <StyledList>
               <li>
-                <NavigationLink to="/">
+                <StyledLink to="/">
                   <Icon src={home} />
                   Home
-                </NavigationLink>
+                </StyledLink>
               </li>
               <li>
-                <NavigationLink to="/favorites">
+                <StyledLink to="/favorites">
                   <Icon src={bookmark} />
                   Your favorites
-                </NavigationLink>
+                </StyledLink>
               </li>
-            </List>
+            </StyledList>
           </nav>
-        </Inner>
+        </StyledInner>
       </Container>
-    </HeaderWrapper>
+    </StyledWrapper>
   );
 }
 
