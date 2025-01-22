@@ -10,6 +10,8 @@ declare module 'styled-components' {
 
       border: string;
       background: string;
+
+      error: string;
     };
   }
 }
