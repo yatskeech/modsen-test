@@ -2,19 +2,19 @@ import { Outlet } from 'react-router';
 import Header from '@components/Header';
 import Footer from '@components/Footer';
 import Container from '@components/Container';
-import { Main, Wrapper } from './styled.ts';
+import { StyledWrapper, StyledMain } from './styled.ts';
 
 function Layout() {
   return (
-    <Wrapper>
+    <StyledWrapper>
       <Header />
-      <Main>
+      <StyledMain>
         <Container>
           <Outlet />
         </Container>
-      </Main>
+      </StyledMain>
       <Footer />
-    </Wrapper>
+    </StyledWrapper>
   );
 }
 

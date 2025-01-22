@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
+export const StyledWrapper = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 `;
 
-export const Main = styled.main`
+export const StyledMain = styled.main`
   padding: 120px 0;
   flex-grow: 1;
 `;

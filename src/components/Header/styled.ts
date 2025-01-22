@@ -1,30 +1,32 @@
 import styled from 'styled-components';
-import museumLight from '@assets/logos/museum-light.svg';
-import { NavLink } from 'react-router';
+import { Link } from 'react-router';
+import MuseumLogo from '@assets/logos/museum-light.svg';
+import HomeIcon from '@assets/icons/home.svg';
+import BookmarkIcon from '@assets/icons/bookmark.svg';
 
-export const HeaderWrapper = styled.header`
+export const StyledWrapper = styled.header`
   padding: 32px 0;
   background: linear-gradient(90deg, #343333 38.05%, #484848 69.22%, #282828 98.98%);
 `;
 
-export const Inner = styled.div`
+export const StyledInner = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 32px;
 `;
 
-export const MuseumLogo = styled.img.attrs(() => ({ src: museumLight, alt: 'Museum of Art' }))`
+export const StyledMuseumLogo = styled(MuseumLogo)`
   height: 63px;
 `;
 
-export const List = styled.ul`
+export const StyledList = styled.ul`
   display: flex;
   gap: 16px;
   list-style-type: none;
 `;
 
-export const NavigationLink = styled(NavLink)`
+export const StyledLink = styled(Link)`
   display: flex;
   align-items: center;
   gap: 4px;
@@ -34,7 +36,12 @@ export const NavigationLink = styled(NavLink)`
   text-decoration: none;
 `;
 
-export const Icon = styled.img.attrs(({ src }) => ({ src, alt: '' }))`
+export const StyledHomeIcon = styled(HomeIcon)`
+  width: 24px;
+  height: 24px;
+`;
+
+export const StyledBookmarkIcon = styled(BookmarkIcon)`
   width: 24px;
   height: 24px;
 `;
