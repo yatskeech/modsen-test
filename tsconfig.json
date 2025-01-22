@@ -20,9 +20,11 @@
     "paths": {
       "@assets/*": ["./assets/*"],
       "@components/*": ["./components/*"],
-      "@constants/*": ["./constants/*"],
+      "@constants": ["./constants"],
       "@layouts/*": ["./layouts/*"],
       "@pages/*": ["./pages/*"],
+      "@utils/*": ["./utils/*"],
+      "@types": ["./types"],
       "@hooks": ["./hooks"],
       "@router": ["./router"],
       "@theme": ["./theme"]

@@ -1,61 +1,42 @@
-import { ChangeEvent, useCallback, useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router';
-import { ArtWork, ArtWorkParams } from '@types';
-import { getArtWorks } from '@utils/api.ts';
-import { useDebounce } from './useDebounce.ts';
-import { ERROR_MESSAGES } from '@constants/index.ts';
+import { useEffect } from 'react';
+import { useSearchParams } from 'react-router';
+import { usePaginate } from './usePaginate.ts';
+import { QUERY_PARAMETERS } from '@constants';
+import { useSearchInput } from './useSearchInput.ts';
 
 export function useSearch() {
-  const [searchInput, setSearchInput] = useState('');
-  const [artWorks, setArtWorks] = useState<ArtWork[] | null>(null);
+  const { fetching, pagination } = usePaginate();
+  const { error, isLoading, artWorks, startFetching, searchDebounced } = fetching;
+  const { currentPage, availablePages, total, navigateToPage } = pagination;
 
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState('');
+  const { searchInput, handleSearchInput } = useSearchInput(() => navigateToPage(1));
+  const [, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    setSearchInput(searchParams.get('q') || '');
-  }, [searchParams]);
+    startFetching();
+    const params = new URLSearchParams({ q: searchInput, page: currentPage.toString(), limit: '3' });
+    searchDebounced(params);
+  }, [currentPage, searchInput, startFetching, searchDebounced]);
 
   useEffect(() => {
-    if (!Array.isArray(artWorks)) {
-      return;
-    }
+    setSearchParams({ [QUERY_PARAMETERS.SEARCH]: searchInput, [QUERY_PARAMETERS.PAGE]: currentPage.toString() });
+  }, [searchInput, currentPage, setSearchParams]);
 
-    if (!artWorks.length) {
-      setError(ERROR_MESSAGES.NOT_FOUND);
-    }
-  }, [artWorks]);
-
-  const search = useCallback(
-    async (params: ArtWorkParams) => {
-      try {
-        setArtWorks(await getArtWorks(params));
-
-        const urlSearchParams = new URLSearchParams(params as Record<string, string>);
-        urlSearchParams.forEach((value, key) => value || urlSearchParams.delete(key));
-        navigate(`/?${urlSearchParams}`);
-      } catch {
-        setError(ERROR_MESSAGES.FETCHING);
-      } finally {
-        setIsLoading(false);
-      }
+  return {
+    fetching: {
+      error,
+      isLoading,
+      artWorks,
     },
-    [navigate],
-  );
-
-  const searchDebounced = useDebounce(search, 500);
-  const handleSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
-    setError('');
-    setIsLoading(true);
-    setSearchInput(event.target.value);
+    pagination: {
+      total,
+      currentPage,
+      availablePages,
+      navigateToPage,
+    },
+    searching: {
+      searchInput,
+      handleSearchInput,
+    },
   };
-
-  useEffect(() => {
-    searchDebounced({ q: searchInput });
-  }, [searchDebounced, searchInput]);
-
-  return { searchInput, handleSearchInput, artWorks, isLoading, error };
 }
