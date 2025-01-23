@@ -6,17 +6,17 @@ import { useSearchInput } from './useSearchInput.ts';
 
 export function useSearch() {
   const { fetching, pagination } = usePaginate();
-  const { error, isLoading, artWorks, startFetching, searchDebounced } = fetching;
-  const { currentPage, availablePages, total, navigateToPage } = pagination;
+  const { error, loading, artWorks, startFetching, searchDebounced } = fetching;
+  const { limit, currentPage, availablePages, total, navigateToPage } = pagination;
 
   const { searchInput, handleSearchInput } = useSearchInput(() => navigateToPage(1));
   const [, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     startFetching();
-    const params = new URLSearchParams({ q: searchInput, page: currentPage.toString(), limit: '3' });
+    const params = new URLSearchParams({ q: searchInput, page: currentPage.toString(), limit: limit.toString() });
     searchDebounced(params);
-  }, [currentPage, searchInput, startFetching, searchDebounced]);
+  }, [currentPage, searchInput, startFetching, searchDebounced, limit]);
 
   useEffect(() => {
     setSearchParams({ [QUERY_PARAMETERS.SEARCH]: searchInput, [QUERY_PARAMETERS.PAGE]: currentPage.toString() });
@@ -25,7 +25,7 @@ export function useSearch() {
   return {
     fetching: {
       error,
-      isLoading,
+      loading,
       artWorks,
     },
     pagination: {

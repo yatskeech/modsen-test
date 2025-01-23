@@ -1,6 +1,8 @@
-import { ArtWork } from '@types';
+import { Artwork } from '@types';
 
 export interface CardProps {
-  artWork: ArtWork;
+  artwork: Artwork;
+  isFavorite: boolean;
+  onFavorite: (artwork: Artwork) => void;
   size?: 'sm' | 'lg';
 }

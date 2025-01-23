@@ -5,14 +5,24 @@ import { useFetch, useSearch } from '@hooks';
 import Pagination from '@components/Pagination';
 import Grid from '@components/Grid';
 import ErrorMessage from '@components/ErrorMessage';
+import { Artwork } from '@types';
+import { useCallback, useContext, useMemo } from 'react';
+import { ArtworksContext } from '@context';
 
 function MainPage() {
   const { fetching, pagination, searching } = useSearch();
-  const { error, isLoading, artWorks } = fetching;
+  const { error, loading, artWorks } = fetching;
   const { total, currentPage, availablePages, navigateToPage } = pagination;
   const { searchInput, handleSearchInput } = searching;
 
-  const recommendedData = useFetch();
+  const params = useMemo(() => ({ limit: 9 }), []);
+  const recommended = useFetch(params);
+  const recommendedArtworks = recommended.data as Artwork[] | null;
+
+  const context = useContext(ArtworksContext);
+
+  const handleFavorite = useCallback((artwork: Artwork) => context?.toggleArtwork(artwork), [context]);
+  const isFavorite = (artwork: Artwork) => Boolean(context?.isFavorite(artwork));
 
   return (
     <StyledWrapper>
@@ -24,39 +34,50 @@ function MainPage() {
       </StyledSection>
       {!error && (
         <>
-          {isLoading && <Loader />}
-          {!isLoading && (
+          {loading && <Loader />}
+          {!loading && (
             <StyledSection>
               <StyledHeading
                 title={searchInput ? `Found ${total} works of art` : 'Our special gallery'}
                 subtitle={searchInput ? 'According to your request' : 'Topics for you'}
               />
               <Grid $rows={1} $columns={3} $gap={60}>
-                {artWorks.map((artWork) => (
-                  <Card key={artWork.id} artWork={artWork} size="lg" />
+                {artWorks.map((artwork) => (
+                  <Card
+                    size="lg"
+                    key={artwork.id}
+                    artwork={artwork}
+                    onFavorite={handleFavorite}
+                    isFavorite={isFavorite(artwork)}
+                  />
                 ))}
               </Grid>
-              <Pagination currentPage={currentPage} totalPages={availablePages} handleNavigate={navigateToPage} />
+              <Pagination currentPage={currentPage} totalPages={availablePages} navigateToPage={navigateToPage} />
             </StyledSection>
           )}
         </>
       )}
       {!searchInput && !error && (
         <>
-          {recommendedData.isLoading && <Loader />}
-          {!recommendedData.isLoading && (
+          {recommended.loading && <Loader />}
+          {!recommended.loading && (
             <StyledSection>
               <StyledHeading title="Other works for you" subtitle="Here some more" />
               <Grid $rows={3} $columns={3} $gap={16}>
-                {recommendedData.artWorks.map((artWork) => (
-                  <Card key={artWork.id} artWork={artWork} />
+                {recommendedArtworks?.map((artwork) => (
+                  <Card
+                    key={artwork.id}
+                    artwork={artwork}
+                    onFavorite={() => handleFavorite(artwork)}
+                    isFavorite={isFavorite(artwork)}
+                  />
                 ))}
               </Grid>
             </StyledSection>
           )}
         </>
       )}
-      {!isLoading && error && <ErrorMessage message={error} />}
+      {!loading && error && <ErrorMessage message={error} />}
     </StyledWrapper>
   );
 }

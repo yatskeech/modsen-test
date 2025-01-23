@@ -1,18 +1,18 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
-import { ArtWork } from '@types';
-import { ArtWorksData } from './types.ts';
+import { Artwork } from '@types';
+import { ArtworksData } from './types.ts';
 import { ARTWORKS_KEY, ERROR_MESSAGES } from '@constants';
-import { fetchArtWork } from '@utils/api.ts';
+import { fetchArtwork } from '@utils/api.ts';
 
-export const ArtWorksContext = createContext<ArtWorksData | null>(null);
+export const ArtworksContext = createContext<ArtworksData | null>(null);
 
-export function ArtWorksContextProvider({ children }: { children: ReactNode }) {
-  const [artworks, setArtworks] = useState<ArtWork[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+export function ArtworksContextProvider({ children }: { children: ReactNode }) {
+  const [artworks, setArtworks] = useState<Artwork[]>([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    setIsLoading(true);
+    setLoading(true);
     const artworkIdsString = localStorage.getItem(ARTWORKS_KEY);
 
     if (!artworkIdsString) {
@@ -26,41 +26,47 @@ export function ArtWorksContextProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    const promiseArtworks = Promise.all(artworkIds.map(fetchArtWork));
-    promiseArtworks
-      .then((data) => {
-        const artworks = data.map((x) => x.data);
-        setArtworks(artworks);
-      })
-      .catch(() => {
+    const setFavoriteArtworks = async () => {
+      try {
+        const favoriteArtworks = await Promise.all(artworkIds.map(fetchArtwork));
+        setArtworks(favoriteArtworks.map((a) => a.data));
+      } catch {
         setArtworks([]);
         setError(ERROR_MESSAGES.FETCHING);
         localStorage.removeItem(ARTWORKS_KEY);
-      })
-      .finally(() => setIsLoading(false));
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    setFavoriteArtworks();
   }, []);
 
   useEffect(() => {
     setError(artworks.length ? '' : ERROR_MESSAGES.NO_FAVORITES);
-    const artworkIds = artworks.map((artwork) => artwork.id);
+    const artworkIds = artworks.map((a) => a.id);
     localStorage.setItem(ARTWORKS_KEY, JSON.stringify(artworkIds));
   }, [artworks]);
 
-  const toggleArtwork = (artwork: ArtWork) => {
+  const toggleArtwork = (artwork: Artwork) => {
     setArtworks((artworks) => {
-      const artworkIds = artworks.map((artwork) => artwork.id);
+      const filteredArtworks = artworks.filter((a) => a.id !== artwork.id);
 
-      if (artworkIds.includes(artwork.id)) {
-        return artworks.filter((currentArtwork) => currentArtwork.id != artwork.id);
+      if (filteredArtworks.length === artworks.length) {
+        return [artwork, ...artworks];
       }
 
-      return [artwork, ...artworks];
+      return filteredArtworks;
     });
   };
 
+  const isFavorite = (artwork: Artwork): boolean => {
+    return Boolean(artworks.find((a) => a.id === artwork.id));
+  };
+
   return (
-    <ArtWorksContext.Provider value={{ artworks, error, isLoading, toggleArtwork }}>
+    <ArtworksContext.Provider value={{ artworks, error, loading, isFavorite, toggleArtwork }}>
       {children}
-    </ArtWorksContext.Provider>
+    </ArtworksContext.Provider>
   );
 }

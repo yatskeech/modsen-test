@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import Status from '@assets/icons/status.svg';
 
 export const StyledError = styled.div`
-  align-self: center;
   display: flex;
   align-items: center;
   gap: 32px;

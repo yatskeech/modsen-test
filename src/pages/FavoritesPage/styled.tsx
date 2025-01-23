@@ -16,14 +16,14 @@ export const StyledTitleWrapper = styled.div`
 `;
 
 interface StyledTitleProps {
-  $isAccent?: boolean;
+  $accent?: boolean;
 }
 
 export const StyledTitle = styled(Title)<StyledTitleProps>`
   display: flex;
   gap: 16px;
   align-items: center;
-  color: ${({ $isAccent, theme }) => ($isAccent ? theme.colors.accent : theme.colors.primary)};
+  color: ${({ $accent, theme }) => ($accent ? theme.colors.accent : theme.colors.primary)};
 `;
 
 export const StyledBookmark = styled(Bookmark)`

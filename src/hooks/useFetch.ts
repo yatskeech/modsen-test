@@ -1,33 +1,45 @@
 import { useEffect, useState } from 'react';
-import { fetchArtWorks } from '@utils/api.ts';
+import { fetchArtwork, fetchArtworks } from '@utils/api.ts';
 import { ERROR_MESSAGES } from '@constants';
-import { ArtWork } from '@types';
+import { Artwork } from '@types';
 
-export function useFetch(size: number = 9) {
-  const [isLoading, setIsLoading] = useState(true);
+type ArtworkFetchParams = { id: number };
+type ArtworksFetchParams = { limit: number };
+type FetchParams = ArtworkFetchParams | ArtworksFetchParams;
+
+export function useFetch(params: FetchParams) {
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [artWorks, setArtWorks] = useState<ArtWork[]>([]);
+  const [data, setData] = useState<Artwork[] | Artwork | null>(null);
 
   useEffect(() => {
     const search = async () => {
       try {
-        setIsLoading(true);
-        const params = new URLSearchParams({ limit: size.toString() });
-        const { pagination, data } = await fetchArtWorks(params);
-        setArtWorks(data);
+        setLoading(true);
 
+        if ('id' in params) {
+          const { data } = await fetchArtwork(params.id);
+          setData(data);
+          return;
+        }
+
+        const stringParams = Object.entries(params).map(([key, value]) => [key, value.toString()]);
+        const urlSearchParams = new URLSearchParams(stringParams);
+        const { pagination, data } = await fetchArtworks(urlSearchParams);
+
+        setData(data);
         if (!pagination.total) {
           setError(ERROR_MESSAGES.NOT_FOUND);
         }
       } catch {
         setError(ERROR_MESSAGES.FETCHING);
       } finally {
-        setIsLoading(false);
+        setLoading(false);
       }
     };
 
     search();
-  }, [size]);
+  }, [params]);
 
-  return { error, isLoading, artWorks };
+  return { error, loading, data };
 }

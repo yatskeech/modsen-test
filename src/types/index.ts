@@ -1,4 +1,4 @@
-export interface ArtWork {
+export interface Artwork {
   id: number;
   title: string;
   artist_title: string;
@@ -8,15 +8,15 @@ export interface ArtWork {
   credit_line: string;
 }
 
-export interface ArtWorksResponse {
+export interface ArtworksResponse {
   pagination: {
     total: number;
     total_pages: number;
     current_page: number;
   };
-  data: ArtWork[];
+  data: Artwork[];
 }
 
-export interface ArtWorkResponse {
-  data: ArtWork;
+export interface ArtworkResponse {
+  data: Artwork;
 }

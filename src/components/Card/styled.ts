@@ -1,9 +1,7 @@
 import styled, { css } from 'styled-components';
 import museum from '@assets/icons/museum.svg?url';
 import { Link } from 'react-router';
-
-const getImageUrl = (imageId: string, { width, height }: { width?: number; height?: number }) =>
-  `https://www.artic.edu/iiif/2/${imageId}/full/${width || ''},${height || ''}/0/default.jpg`;
+import { getImageUrl } from '@utils/api.ts';
 
 interface Props {
   $size: 'sm' | 'lg';

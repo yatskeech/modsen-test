@@ -3,5 +3,5 @@ export interface PaginationProps {
   totalPages: number;
   closePages?: number;
   endPages?: number;
-  handleNavigate: (page: number) => void;
+  navigateToPage: (page: number) => void;
 }
