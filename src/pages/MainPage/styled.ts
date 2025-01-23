@@ -47,19 +47,6 @@ export const StyledHeading = styled(Heading)`
   align-self: center;
 `;
 
-interface StyledGridProps {
-  $rows: number;
-  $columns: number;
-  $gap: number;
-}
-
-export const StyledGrid = styled.div<StyledGridProps>`
-  display: grid;
-  grid-template-rows: repeat(${({ $rows }) => $rows}, 1fr);
-  grid-template-columns: repeat(${({ $columns }) => $columns}, 1fr);
-  gap: ${({ $gap }) => ($gap ? `${$gap}px` : '0')};
-`;
-
 export const StyledStatus = styled(Status)`
   width: 160px;
   height: 160px;

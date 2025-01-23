@@ -4,7 +4,6 @@ import {
   Select,
   StyledTitle,
   StyledHeading,
-  StyledGrid,
   StyledSection,
   StyledError,
   StyledStatus,
@@ -13,6 +12,7 @@ import Card from '@components/Card';
 import Loader from '@components/Loader';
 import { useFetch, useSearch } from '@hooks';
 import Pagination from '@components/Pagination';
+import Grid from '@components/Grid';
 
 function MainPage() {
   const { fetching, pagination, searching } = useSearch();
@@ -39,11 +39,11 @@ function MainPage() {
                 title={searchInput ? `Found ${total} works of art` : 'Our special gallery'}
                 subtitle={searchInput ? 'According to your request' : 'Topics for you'}
               />
-              <StyledGrid $rows={1} $columns={3} $gap={60}>
+              <Grid $rows={1} $columns={3} $gap={60}>
                 {artWorks.map((artWork) => (
                   <Card key={artWork.id} artWork={artWork} size="lg" />
                 ))}
-              </StyledGrid>
+              </Grid>
               <Pagination currentPage={currentPage} totalPages={availablePages} handleNavigate={navigateToPage} />
             </StyledSection>
           )}
@@ -55,11 +55,11 @@ function MainPage() {
           {!recommendedData.isLoading && (
             <StyledSection>
               <StyledHeading title="Other works for you" subtitle="Here some more" />
-              <StyledGrid $rows={3} $columns={3} $gap={16}>
+              <Grid $rows={3} $columns={3} $gap={16}>
                 {recommendedData.artWorks.map((artWork) => (
                   <Card key={artWork.id} artWork={artWork} />
                 ))}
-              </StyledGrid>
+              </Grid>
             </StyledSection>
           )}
         </>
