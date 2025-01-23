@@ -3,6 +3,7 @@ import Input from '@components/Input';
 import Title from '@components/Title';
 import Heading from '@components/Heading';
 import search from '@assets/icons/search.svg?url';
+import ErrorMessage from '@components/ErrorMessage';
 
 export const StyledWrapper = styled.div`
   display: flex;
@@ -43,5 +44,9 @@ export const StyledInput = styled(Input)`
 
 export const StyledHeading = styled(Heading)`
   margin-bottom: 40px;
+  align-self: center;
+`;
+
+export const StyledErrorMessage = styled(ErrorMessage)`
   align-self: center;
 `;

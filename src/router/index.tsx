@@ -3,6 +3,7 @@ import Layout from '@layouts/Layout';
 import MainPage from '@pages/MainPage';
 import FavoritesPage from '@pages/FavoritesPage';
 import ArtworkPage from '@pages/ArtworkPage';
+import NotFoundPage from '@pages/NotFoundPage';
 
 const router = createBrowserRouter([
   {
@@ -18,8 +19,12 @@ const router = createBrowserRouter([
         element: <FavoritesPage />,
       },
       {
-        path: ':id',
+        path: 'artworks/:id',
         element: <ArtworkPage />,
+      },
+      {
+        path: '*',
+        element: <NotFoundPage />,
       },
     ],
   },

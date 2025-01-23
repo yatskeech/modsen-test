@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 import Status from '@assets/icons/status.svg';
 
-export const StyledError = styled.div`
+export const StyledText = styled.p`
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 16px;
-  max-width: 450px;
-  min-width: 300px;
-  color: ${({ theme }) => theme.colors.primary};
+  font-size: 20px;
+  text-align: center;
+  margin: 0 auto;
+  padding: 120px 0;
 `;
 
 export const StyledStatus = styled(Status)`

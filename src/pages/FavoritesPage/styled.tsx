@@ -38,3 +38,9 @@ export const StyledBookmark = styled(Bookmark)`
 export const StyledHeading = styled(Heading)`
   margin-bottom: 40px;
 `;
+
+export const StyledMessage = styled.p`
+  align-self: center;
+  text-align: center;
+  opacity: 0.6;
+`;
