@@ -20,7 +20,7 @@ function Card({ artwork, isFavorite, onFavorite, size = 'sm' }: CardProps) {
   };
 
   return (
-    <StyledWrapper to={`/${artwork.id}`} $size={size}>
+    <StyledWrapper to={`/artwork/${artwork.id}`} $size={size}>
       <StyledImageBox $size={size}>
         <StyledImage $imageId={artwork.image_id} $size={size} />
       </StyledImageBox>

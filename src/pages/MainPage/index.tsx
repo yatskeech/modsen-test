@@ -1,10 +1,17 @@
-import { StyledWrapper, StyledInput, Select, StyledTitle, StyledHeading, StyledSection } from './styled.ts';
+import {
+  StyledWrapper,
+  StyledInput,
+  Select,
+  StyledTitle,
+  StyledHeading,
+  StyledSection,
+  StyledErrorMessage,
+} from './styled.ts';
 import Card from '@components/Card';
 import Loader from '@components/Loader';
 import { useFetch, useSearch } from '@hooks';
 import Pagination from '@components/Pagination';
 import Grid from '@components/Grid';
-import ErrorMessage from '@components/ErrorMessage';
 import { Artwork } from '@types';
 import { useCallback, useContext, useMemo } from 'react';
 import { ArtworksContext } from '@context';
@@ -77,7 +84,7 @@ function MainPage() {
           )}
         </>
       )}
-      {!loading && error && <ErrorMessage message={error} />}
+      {!loading && error && <StyledErrorMessage message={error} />}
     </StyledWrapper>
   );
 }
