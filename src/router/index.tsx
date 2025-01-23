@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router';
 import Layout from '@layouts/Layout';
 import MainPage from '@pages/MainPage';
+import FavoritesPage from '@pages/FavoritesPage';
 
 const router = createBrowserRouter([
   {
@@ -10,6 +11,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <MainPage />,
+      },
+      {
+        path: 'favorites',
+        element: <FavoritesPage />,
       },
     ],
   },

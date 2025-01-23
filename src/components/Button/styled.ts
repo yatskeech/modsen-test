@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import BookmarkIcon from '@assets/icons/bookmark.svg';
 
-export const StyledButton = styled.button`
+export interface StyledButtonProps {
+  $isFavorite?: boolean;
+}
+
+export const StyledButton = styled.button<StyledButtonProps>`
   flex-shrink: 0;
   width: 60px;
   height: 60px;
@@ -10,8 +14,9 @@ export const StyledButton = styled.button`
   align-items: center;
   border: none;
   border-radius: 50%;
-  background-color: ${({ theme }) => theme.colors.extra};
+  background-color: ${({ theme, $isFavorite }) => ($isFavorite ? '#FBD7B24D' : theme.colors.extra)};
   cursor: pointer;
+  transition: 0.3s;
 `;
 
 export const StyledBookmark = styled(BookmarkIcon)`
