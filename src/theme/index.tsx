@@ -14,4 +14,9 @@ const theme: DefaultTheme = {
   },
 };
 
+function Theme() {
+  return <ThemeProvider></ThemeProvider>;
+}
+
+
 export default theme;
