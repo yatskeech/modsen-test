@@ -4,6 +4,7 @@ import MuseumLogo from '@assets/logos/museum-light.svg';
 export const StyledWrapper = styled.header`
   padding: 32px 0;
   background: linear-gradient(90deg, #343333 38.05%, #484848 69.22%, #282828 98.98%);
+  position: relative;
 `;
 
 export const StyledInner = styled.div`
