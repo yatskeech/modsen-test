@@ -10,8 +10,12 @@ import {
   StyledImageBox,
 } from './styled.ts';
 import Button from '@components/Button';
+import { useContext } from 'react';
+import { ArtWorksContext } from '../../context';
 
 function Card({ artWork, size = 'sm' }: CardProps) {
+  const context = useContext(ArtWorksContext);
+
   return (
     <StyledWrapper to={`/${artWork.id}`} $size={size}>
       <StyledImageBox $size={size}>
@@ -25,7 +29,13 @@ function Card({ artWork, size = 'sm' }: CardProps) {
           </div>
           <StyledStatus>Public</StyledStatus>
         </StyledInfo>
-        <Button />
+        <Button
+          onClick={(event) => {
+            event.preventDefault();
+            context!.toggleArtwork(artWork);
+          }}
+          $isFavorite={context!.artworks.map((x) => x.id).includes(artWork.id)}
+        />
       </StyledContent>
     </StyledWrapper>
   );

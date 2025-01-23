@@ -8,17 +8,15 @@ export interface ArtWork {
   credit_line: string;
 }
 
-export interface ArtWorkParams {
-  q?: string;
-  page?: string;
-  limit?: string;
-}
-
-export interface ArtWorkResponse {
+export interface ArtWorksResponse {
   pagination: {
     total: number;
     total_pages: number;
     current_page: number;
   };
   data: ArtWork[];
+}
+
+export interface ArtWorkResponse {
+  data: ArtWork;
 }

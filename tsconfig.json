@@ -24,6 +24,7 @@
       "@layouts/*": ["./layouts/*"],
       "@pages/*": ["./pages/*"],
       "@utils/*": ["./utils/*"],
+      "@context": ["./context"],
       "@types": ["./types"],
       "@hooks": ["./hooks"],
       "@router": ["./router"],

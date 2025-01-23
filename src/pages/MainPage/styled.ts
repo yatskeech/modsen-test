@@ -3,7 +3,6 @@ import Input from '@components/Input';
 import Title from '@components/Title';
 import Heading from '@components/Heading';
 import search from '@assets/icons/search.svg?url';
-import Status from '@assets/icons/status.svg';
 
 export const StyledWrapper = styled.div`
   display: flex;
@@ -45,23 +44,4 @@ export const StyledInput = styled(Input)`
 export const StyledHeading = styled(Heading)`
   margin-bottom: 40px;
   align-self: center;
-`;
-
-export const StyledStatus = styled(Status)`
-  width: 160px;
-  height: 160px;
-
-  & path {
-    stroke: ${({ theme }) => theme.colors.error};
-  }
-`;
-
-export const StyledError = styled.div`
-  align-self: center;
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  max-width: 30%;
-  min-width: 300px;
-  color: ${({ theme }) => theme.colors.primary};
 `;

@@ -1,3 +1,4 @@
 import { ButtonHTMLAttributes } from 'react';
+import { StyledButtonProps } from './styled.ts';
 
-export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, StyledButtonProps {}

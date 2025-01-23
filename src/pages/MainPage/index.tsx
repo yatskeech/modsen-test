@@ -1,18 +1,10 @@
-import {
-  StyledWrapper,
-  StyledInput,
-  Select,
-  StyledTitle,
-  StyledHeading,
-  StyledSection,
-  StyledError,
-  StyledStatus,
-} from './styled.ts';
+import { StyledWrapper, StyledInput, Select, StyledTitle, StyledHeading, StyledSection } from './styled.ts';
 import Card from '@components/Card';
 import Loader from '@components/Loader';
 import { useFetch, useSearch } from '@hooks';
 import Pagination from '@components/Pagination';
 import Grid from '@components/Grid';
+import ErrorMessage from '@components/ErrorMessage';
 
 function MainPage() {
   const { fetching, pagination, searching } = useSearch();
@@ -64,12 +56,7 @@ function MainPage() {
           )}
         </>
       )}
-      {!isLoading && error && (
-        <StyledError>
-          <StyledStatus />
-          {error}
-        </StyledError>
-      )}
+      {!isLoading && error && <ErrorMessage message={error} />}
     </StyledWrapper>
   );
 }
