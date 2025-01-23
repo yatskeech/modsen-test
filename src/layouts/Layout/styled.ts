@@ -9,4 +9,8 @@ export const StyledWrapper = styled.div`
 export const StyledMain = styled.main`
   padding: 120px 0;
   flex-grow: 1;
+
+  @media (max-width: 600px) {
+    padding: 60px 0;
+  }
 `;

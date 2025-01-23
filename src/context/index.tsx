@@ -19,14 +19,7 @@ export function ArtworksContextProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    const artworkIds = JSON.parse(artworkIdsString);
-
-    if (!Array.isArray(artworkIds)) {
-      localStorage.removeItem(ARTWORKS_KEY);
-      return;
-    }
-
-    const setFavoriteArtworks = async () => {
+    const setFavoriteArtworks = async (artworkIds: Artwork['id'][]) => {
       try {
         const favoriteArtworks = await Promise.all(artworkIds.map(fetchArtwork));
         setArtworks(favoriteArtworks.map((a) => a.data));
@@ -39,7 +32,18 @@ export function ArtworksContextProvider({ children }: { children: ReactNode }) {
       }
     };
 
-    setFavoriteArtworks();
+    try {
+      const artworkIds = JSON.parse(artworkIdsString);
+
+      if (!Array.isArray(artworkIds)) {
+        localStorage.removeItem(ARTWORKS_KEY);
+        return;
+      }
+
+      setFavoriteArtworks(artworkIds);
+    } catch {
+      localStorage.removeItem(ARTWORKS_KEY);
+    }
   }, []);
 
   useEffect(() => {

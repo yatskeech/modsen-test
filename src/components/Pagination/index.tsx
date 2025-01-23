@@ -2,7 +2,7 @@ import { StyledButton, StyledWrapper } from './styled.ts';
 import { PaginationProps } from './types.ts';
 import { Fragment } from 'react';
 
-function Pagination({ currentPage, totalPages, navigateToPage, closePages = 1, endPages = 2 }: PaginationProps) {
+function Pagination({ currentPage, totalPages, navigateToPage, closePages = 1, endPages = 1 }: PaginationProps) {
   const shouldShowPage = (page: number) =>
     page - 1 < endPages || totalPages - page < endPages || Math.abs(currentPage - page) <= closePages;
 

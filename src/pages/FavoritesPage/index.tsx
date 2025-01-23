@@ -1,12 +1,12 @@
 import {
   StyledBookmark,
+  StyledGrid,
   StyledHeading,
   StyledMessage,
   StyledTitle,
   StyledTitleWrapper,
   StyledWrapper,
 } from './styled.tsx';
-import Grid from '@components/Grid';
 import { useCallback, useContext } from 'react';
 import Card from '@components/Card';
 import { ArtworksContext } from '@context';
@@ -19,6 +19,10 @@ function FavoritesPage() {
   const handleFavorite = useCallback((artwork: Artwork) => context?.toggleArtwork(artwork), [context]);
   const isFavorite = (artwork: Artwork) => Boolean(context?.isFavorite(artwork));
 
+  if (context?.loading) {
+    return <Loader />;
+  }
+
   return (
     <StyledWrapper>
       <StyledTitleWrapper>
@@ -29,9 +33,8 @@ function FavoritesPage() {
         </StyledTitle>
       </StyledTitleWrapper>
       {!context?.error && <StyledHeading title="Your favorites list" subtitle="Saved by you" />}
-      {context?.loading && <Loader />}
       {!context?.loading && (
-        <Grid $columns={3} $gap={16}>
+        <StyledGrid>
           {context?.artworks.map((artwork) => (
             <Card
               size="sm"
@@ -41,9 +44,9 @@ function FavoritesPage() {
               isFavorite={isFavorite(artwork)}
             />
           ))}
-        </Grid>
+        </StyledGrid>
       )}
-      {!context?.loading && context?.error && <StyledMessage>{context.error}</StyledMessage>}
+      {context?.error && <StyledMessage>{context.error}</StyledMessage>}
     </StyledWrapper>
   );
 }

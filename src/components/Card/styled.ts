@@ -90,10 +90,15 @@ export const StyledContent = styled.div<Props>`
       lg: css`
         position: absolute;
         bottom: 0;
-        left: 24px;
-        right: 24px;
+        left: 12px;
+        right: 12px;
         padding: 20px 24px;
         background-color: white;
+
+        @media (max-width: 1100px) {
+          left: 24px;
+          right: 24px;
+        }
       `,
     })[$size]};
 `;
