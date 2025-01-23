@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router';
 import Layout from '@layouts/Layout';
 import MainPage from '@pages/MainPage';
 import FavoritesPage from '@pages/FavoritesPage';
+import ArtworkPage from '@pages/ArtworkPage';
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
       {
         path: 'favorites',
         element: <FavoritesPage />,
+      },
+      {
+        path: ':id',
+        element: <ArtworkPage />,
       },
     ],
   },

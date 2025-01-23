@@ -1,7 +1,8 @@
-import { ArtWork, ArtWorkResponse, ArtWorksResponse } from '@types';
+import { Artwork, ArtworkResponse, ArtworksResponse } from '@types';
 
 const URL = 'https://api.artic.edu/api/v1/artworks';
-const FIELDS: (keyof ArtWork)[] = [
+const IMAGE_URL = 'https://www.artic.edu/iiif/2';
+const FIELDS: (keyof Artwork)[] = [
   'id',
   'title',
   'artist_title',
@@ -13,7 +14,10 @@ const FIELDS: (keyof ArtWork)[] = [
 
 const FIElDS_PARAMS = new URLSearchParams({ fields: FIELDS.toString() });
 
-export async function fetchArtWorks(params?: URLSearchParams): Promise<ArtWorksResponse> {
+export const getImageUrl = (imageId: string, { width, height }: { width?: number; height?: number }) =>
+  `${IMAGE_URL}/${imageId}/full/${width || ''},${height || ''}/0/default.jpg`;
+
+export async function fetchArtworks(params?: URLSearchParams): Promise<ArtworksResponse> {
   const urlSearchParams = new URLSearchParams(params);
   const response = await fetch(`${URL}/search/?${FIElDS_PARAMS}&${urlSearchParams}`);
 
@@ -24,7 +28,7 @@ export async function fetchArtWorks(params?: URLSearchParams): Promise<ArtWorksR
   return response.json();
 }
 
-export async function fetchArtWork(id: number): Promise<ArtWorkResponse> {
+export async function fetchArtwork(id: number): Promise<ArtworkResponse> {
   const response = await fetch(`${URL}/${id}/?${FIElDS_PARAMS}&`);
 
   if (!response.ok) {

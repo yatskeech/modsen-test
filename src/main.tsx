@@ -5,15 +5,15 @@ import router from '@router';
 import theme from '@theme';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './styled.ts';
-import { ArtWorksContextProvider } from './context';
+import { ArtworksContextProvider } from '@context';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ArtWorksContextProvider>
+    <ArtworksContextProvider>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <RouterProvider router={router} />
       </ThemeProvider>
-    </ArtWorksContextProvider>
+    </ArtworksContextProvider>
   </StrictMode>,
 );

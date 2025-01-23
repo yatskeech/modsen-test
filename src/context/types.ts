@@ -1,8 +1,9 @@
-import { ArtWork } from '@types';
+import { Artwork } from '@types';
 
-export interface ArtWorksData {
-  artworks: ArtWork[];
+export interface ArtworksData {
+  artworks: Artwork[];
   error: string;
-  isLoading: boolean;
-  toggleArtwork: (artwork: ArtWork) => void;
+  loading: boolean;
+  toggleArtwork: (artwork: Artwork) => void;
+  isFavorite: (artwork: Artwork) => boolean;
 }

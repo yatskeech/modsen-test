@@ -8,7 +8,7 @@ export const StyledWrapper = styled.div`
 `;
 
 interface StyledButtonProps {
-  $isActive: boolean;
+  $isActive?: boolean;
 }
 
 export const StyledButton = styled.button<StyledButtonProps>`

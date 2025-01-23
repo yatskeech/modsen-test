@@ -1,27 +1,29 @@
 import { useCallback, useState } from 'react';
 import { ERROR_MESSAGES, MAX_ARTWORKS, QUERY_PARAMETERS } from '@constants';
 import { useSearchParams } from 'react-router';
-import { fetchArtWorks } from '@utils/api.ts';
+import { fetchArtworks } from '@utils/api.ts';
 import { useDebounce } from './useDebounce.ts';
-import { ArtWork } from '@types';
+import { Artwork } from '@types';
 
-export function usePaginate(limit: number = 3) {
-  const [isLoading, setIsLoading] = useState(true);
+export function usePaginate() {
+  const [limit] = useState(3);
+
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   const [totalPages, setTotalPages] = useState(1);
   const [total, setTotal] = useState(0);
-  const [artWorks, setArtWorks] = useState<ArtWork[]>([]);
+  const [artWorks, setArtWorks] = useState<Artwork[]>([]);
 
   const startFetching = useCallback(() => {
     setError('');
-    setIsLoading(true);
+    setLoading(true);
   }, []);
 
   const searchDebounced = useDebounce(
     useCallback(async (searchParams: URLSearchParams) => {
       try {
-        const { pagination, data } = await fetchArtWorks(searchParams);
+        const { pagination, data } = await fetchArtworks(searchParams);
         setArtWorks(data);
         setTotalPages(pagination.total_pages);
         setTotal(pagination.total);
@@ -32,7 +34,7 @@ export function usePaginate(limit: number = 3) {
       } catch {
         setError(ERROR_MESSAGES.FETCHING);
       } finally {
-        setIsLoading(false);
+        setLoading(false);
       }
     }, []),
     500,
@@ -50,11 +52,12 @@ export function usePaginate(limit: number = 3) {
     fetching: {
       error,
       artWorks,
-      isLoading,
+      loading,
       startFetching,
       searchDebounced,
     },
     pagination: {
+      limit,
       currentPage,
       total,
       availablePages,
