@@ -19,7 +19,7 @@ const router = createBrowserRouter([
         element: <FavoritesPage />,
       },
       {
-        path: 'artwork/:id',
+        path: 'artworks/:id',
         element: <ArtworkPage />,
       },
       {
