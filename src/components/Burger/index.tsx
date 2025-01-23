@@ -18,10 +18,14 @@ function Burger() {
     setIsOpen(false);
   }, [searchParams]);
 
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : 'auto';
+  }, [isOpen]);
+
   return (
     <>
       <StyledWrapper>
-        <StyledOverlay $isOpen={isOpen} />
+        <StyledOverlay $isOpen={isOpen} onClick={() => setIsOpen(false)} />
         <StyledContent $isOpen={isOpen}>
           <StyledNav>
             <StyledNavigationList />
