@@ -17,6 +17,12 @@ export const StyledButton = styled.button<StyledButtonProps>`
   background-color: ${({ theme, $isFavorite }) => ($isFavorite ? '#FBD7B24D' : theme.colors.extra)};
   cursor: pointer;
   transition: 0.3s;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: #fbd7b24d;
+    }
+  }
 `;
 
 export const StyledBookmark = styled(BookmarkIcon)`
