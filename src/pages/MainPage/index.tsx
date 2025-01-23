@@ -6,12 +6,13 @@ import {
   StyledHeading,
   StyledSection,
   StyledErrorMessage,
+  StyledLargeGrid,
+  StyledSmallGrid,
 } from './styled.ts';
 import Card from '@components/Card';
 import Loader from '@components/Loader';
 import { useFetch, useSearch } from '@hooks';
 import Pagination from '@components/Pagination';
-import Grid from '@components/Grid';
 import { Artwork } from '@types';
 import { useCallback, useContext, useMemo } from 'react';
 import { ArtworksContext } from '@context';
@@ -48,7 +49,7 @@ function MainPage() {
                 title={searchInput ? `Found ${total} works of art` : 'Our special gallery'}
                 subtitle={searchInput ? 'According to your request' : 'Topics for you'}
               />
-              <Grid $rows={1} $columns={3} $gap={60}>
+              <StyledLargeGrid>
                 {artWorks.map((artwork) => (
                   <Card
                     size="lg"
@@ -58,7 +59,7 @@ function MainPage() {
                     isFavorite={isFavorite(artwork)}
                   />
                 ))}
-              </Grid>
+              </StyledLargeGrid>
               <Pagination currentPage={currentPage} totalPages={availablePages} navigateToPage={navigateToPage} />
             </StyledSection>
           )}
@@ -70,7 +71,7 @@ function MainPage() {
           {!recommended.loading && (
             <StyledSection>
               <StyledHeading title="Other works for you" subtitle="Here some more" />
-              <Grid $rows={3} $columns={3} $gap={16}>
+              <StyledSmallGrid>
                 {recommendedArtworks?.map((artwork) => (
                   <Card
                     key={artwork.id}
@@ -79,7 +80,7 @@ function MainPage() {
                     isFavorite={isFavorite(artwork)}
                   />
                 ))}
-              </Grid>
+              </StyledSmallGrid>
             </StyledSection>
           )}
         </>

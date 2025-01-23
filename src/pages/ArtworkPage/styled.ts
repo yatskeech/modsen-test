@@ -7,6 +7,15 @@ export const StyledWrapper = styled.div`
   width: 100%;
   display: flex;
   gap: 80px;
+
+  @media (max-width: 1000px) {
+    gap: 40px;
+  }
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export const StyledErrorMessage = styled(ErrorMessage)`
@@ -14,10 +23,14 @@ export const StyledErrorMessage = styled(ErrorMessage)`
 `;
 
 export const StyledImageBox = styled.div`
+  flex-grow: 1;
+  max-width: 497px;
+  width: 100%;
   display: flex;
   position: relative;
   background: url(${`"${museum}"`}) center center no-repeat;
   background-size: 20% 20%;
+  overflow: hidden;
 
   &::before {
     content: '';
@@ -61,6 +74,7 @@ export const StyledContentBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 48px;
 `;
 
 export const StyledTitle = styled.h1`

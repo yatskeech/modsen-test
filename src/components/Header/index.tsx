@@ -1,14 +1,8 @@
 import Container from '@components/Container';
-import {
-  StyledWrapper,
-  StyledInner,
-  StyledList,
-  StyledLink,
-  StyledMuseumLogo,
-  StyledHomeIcon,
-  StyledBookmarkIcon,
-} from './styled.ts';
+import { StyledWrapper, StyledInner, StyledMuseumLogo, StyledNav } from './styled.ts';
 import { Link } from 'react-router';
+import Burger from '@components/Burger';
+import NavigationList from '@components/NavigationList';
 
 function Header() {
   return (
@@ -18,22 +12,10 @@ function Header() {
           <Link to="/">
             <StyledMuseumLogo />
           </Link>
-          <nav>
-            <StyledList>
-              <li>
-                <StyledLink to="/">
-                  <StyledHomeIcon />
-                  Home
-                </StyledLink>
-              </li>
-              <li>
-                <StyledLink to="/favorites">
-                  <StyledBookmarkIcon />
-                  Your favorites
-                </StyledLink>
-              </li>
-            </StyledList>
-          </nav>
+          <StyledNav>
+            <NavigationList />
+          </StyledNav>
+          <Burger />
         </StyledInner>
       </Container>
     </StyledWrapper>

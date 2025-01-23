@@ -6,7 +6,7 @@ import { useDebounce } from './useDebounce.ts';
 import { Artwork } from '@types';
 
 export function usePaginate() {
-  const [limit] = useState(3);
+  const [limit] = useState(4);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');

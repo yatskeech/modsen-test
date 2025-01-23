@@ -7,7 +7,6 @@ export const StyledText = styled.p`
   align-items: center;
   gap: 16px;
   font-size: 20px;
-  text-align: center;
   margin: 0 auto;
   padding: 120px 0;
 `;
