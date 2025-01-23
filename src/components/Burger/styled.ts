@@ -27,7 +27,6 @@ export const StyledOverlay = styled.div<Props>`
 export const StyledContent = styled.div<Props>`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   width: 70%;
   height: 100vh;
   position: absolute;
@@ -35,7 +34,6 @@ export const StyledContent = styled.div<Props>`
   right: 0;
   background-color: ${({ theme }) => theme.colors.primary};
   padding: 120px 32px;
-  box-sizing: border-box;
   transform: ${({ $isOpen }) => ($isOpen ? 'translateX(0)' : 'translateX(100%)')};
   z-index: 11;
   transition: 0.3s;
