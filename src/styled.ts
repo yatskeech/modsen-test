@@ -11,6 +11,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Lexend Deca', 'Inter', sans-serif;
     color: ${({ theme }) => theme.colors.primary};
     background: ${({ theme }) => theme.colors.background};
+    scroll-behavior: smooth;
   }
   
   a {

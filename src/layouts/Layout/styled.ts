@@ -4,8 +4,6 @@ export const StyledWrapper = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  position: relative;
-  overflow: hidden;
 `;
 
 export const StyledMain = styled.main`
