@@ -13,7 +13,7 @@ export function useFetch(params: FetchParams) {
   const [data, setData] = useState<Artwork[] | Artwork | null>(null);
 
   useEffect(() => {
-    const search = async () => {
+    const fetchData = async () => {
       try {
         setLoading(true);
 
@@ -38,7 +38,7 @@ export function useFetch(params: FetchParams) {
       }
     };
 
-    search();
+    fetchData();
   }, [params]);
 
   return { error, loading, data };

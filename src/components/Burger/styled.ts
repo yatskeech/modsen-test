@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import NavigationList from 'components/NavigationList';
 
-interface Props {
+interface StyledProps {
   $isOpen: boolean;
 }
 
@@ -13,7 +13,7 @@ export const StyledWrapper = styled.div`
   }
 `;
 
-export const StyledOverlay = styled.div<Props>`
+export const StyledOverlay = styled.div<StyledProps>`
   display: ${({ $isOpen }) => ($isOpen ? 'block' : 'none')};
   position: fixed;
   top: 0;
@@ -25,7 +25,7 @@ export const StyledOverlay = styled.div<Props>`
   cursor: pointer;
 `;
 
-export const StyledContent = styled.div<Props>`
+export const StyledContent = styled.div<StyledProps>`
   display: flex;
   flex-direction: column;
   width: 70%;
@@ -53,7 +53,7 @@ export const StyledNavigationList = styled(NavigationList)`
   flex-direction: column;
 `;
 
-export const StyledButton = styled.button<Props>`
+export const StyledButton = styled.button<StyledProps>`
   display: none;
 
   &::before,
@@ -89,7 +89,7 @@ export const StyledButton = styled.button<Props>`
   }
 `;
 
-export const StyledLine = styled.div<Props>`
+export const StyledLine = styled.div<StyledProps>`
   width: 36px;
   height: 2px;
   border-radius: 4px;

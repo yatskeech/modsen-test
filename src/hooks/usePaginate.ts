@@ -13,18 +13,24 @@ export function usePaginate() {
 
   const [totalPages, setTotalPages] = useState(1);
   const [total, setTotal] = useState(0);
-  const [artWorks, setArtWorks] = useState<Artwork[]>([]);
+  const [artworks, setArtworks] = useState<Artwork[]>([]);
 
-  const startFetching = useCallback(() => {
-    setError('');
-    setLoading(true);
-  }, []);
+  // The API allows you to get only the first 1000 works of art.
+  const maxPages = Math.floor(MAX_ARTWORKS / limit);
+  const availablePages = Math.min(maxPages, totalPages);
 
-  const searchDebounced = useDebounce(
+  const [searchParams] = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(() => Number(searchParams.get(QUERY_PARAMETERS.PAGE)) || 1);
+
+  const fetchArtworksDebounced = useDebounce(
     useCallback(async (searchParams: URLSearchParams) => {
       try {
+        setError('');
+        setLoading(true);
+
         const { pagination, data } = await fetchArtworks(searchParams);
-        setArtWorks(data);
+
+        setArtworks(data);
         setTotalPages(pagination.total_pages);
         setTotal(pagination.total);
 
@@ -40,28 +46,14 @@ export function usePaginate() {
     500,
   );
 
-  // The API allows you to get only the first 1000 works of art.
-  const maxPages = Math.floor(MAX_ARTWORKS / limit);
-  const availablePages = Math.min(maxPages, totalPages);
+  const navigateToPage = (page: number) => {
+    setError('');
+    setLoading(true);
+    return page > availablePages ? setCurrentPage(1) : setCurrentPage(page);
+  };
 
-  const [searchParams] = useSearchParams();
-  const [currentPage, setCurrentPage] = useState(() => Number(searchParams.get(QUERY_PARAMETERS.PAGE)) || 1);
-
-  const navigateToPage = (page: number) => (page > availablePages ? setCurrentPage(1) : setCurrentPage(page));
   return {
-    fetching: {
-      error,
-      artWorks,
-      loading,
-      startFetching,
-      searchDebounced,
-    },
-    pagination: {
-      limit,
-      currentPage,
-      total,
-      availablePages,
-      navigateToPage,
-    },
+    fetching: { error, artworks, loading, fetchArtworksDebounced },
+    pagination: { limit, currentPage, total, availablePages, navigateToPage },
   };
 }

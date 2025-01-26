@@ -3,11 +3,11 @@ import museum from '@assets/icons/museum.svg?url';
 import { Link } from 'react-router';
 import { getImageUrl } from '@utils/api.ts';
 
-interface Props {
+interface StyledProps {
   $size: 'sm' | 'lg';
 }
 
-export const StyledWrapper = styled(Link)<Props>`
+export const StyledWrapper = styled(Link)<StyledProps>`
   position: relative;
 
   ${({ $size }) =>
@@ -26,12 +26,12 @@ export const StyledWrapper = styled(Link)<Props>`
     })[$size]};
 `;
 
-export const StyledImageBox = styled.div<Props>`
+export const StyledImageBox = styled.div<StyledProps>`
   position: relative;
   z-index: ${({ $size }) => ($size == 'sm' ? '1' : 0)};
 `;
 
-interface StyledImageProps extends Props {
+interface StyledImageProps extends StyledProps {
   $imageId: string;
 }
 
@@ -75,7 +75,7 @@ export const StyledImage = styled.div<StyledImageProps>`
   }
 `;
 
-export const StyledContent = styled.div<Props>`
+export const StyledContent = styled.div<StyledProps>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -103,7 +103,7 @@ export const StyledContent = styled.div<Props>`
     })[$size]};
 `;
 
-export const StyledInfo = styled.div<Props>`
+export const StyledInfo = styled.div<StyledProps>`
   flex-shrink: 1;
   overflow: hidden;
   display: flex;

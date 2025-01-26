@@ -14,12 +14,12 @@ import Loader from '@components/Loader';
 import { useFetch, useSearch } from '@hooks';
 import Pagination from '@components/Pagination';
 import { Artwork } from '@types';
-import { useCallback, useContext, useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 import { ArtworksContext } from '@context';
 
 function MainPage() {
   const { fetching, pagination, searching } = useSearch();
-  const { error, loading, artWorks } = fetching;
+  const { error, loading, artworks } = fetching;
   const { total, currentPage, availablePages, navigateToPage } = pagination;
   const { searchInput, handleSearchInput } = searching;
 
@@ -29,7 +29,7 @@ function MainPage() {
 
   const context = useContext(ArtworksContext);
 
-  const handleFavorite = useCallback((artwork: Artwork) => context?.toggleArtwork(artwork), [context]);
+  const handleFavorite = (artwork: Artwork) => context?.toggleArtwork(artwork);
   const isFavorite = (artwork: Artwork) => Boolean(context?.isFavorite(artwork));
 
   return (
@@ -50,7 +50,7 @@ function MainPage() {
                 subtitle={searchInput ? 'According to your request' : 'Topics for you'}
               />
               <StyledLargeGrid>
-                {artWorks.map((artwork) => (
+                {artworks.map((artwork) => (
                   <Card
                     size="lg"
                     key={artwork.id}
@@ -65,7 +65,7 @@ function MainPage() {
           )}
         </>
       )}
-      {!searchInput && !error && (
+      {!searchInput && !recommended.error && (
         <>
           {recommended.loading && <Loader />}
           {!recommended.loading && (

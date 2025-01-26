@@ -18,8 +18,7 @@ export const getImageUrl = (imageId: string, { width, height }: { width?: number
   `${IMAGE_URL}/${imageId}/full/${width || ''},${height || ''}/0/default.jpg`;
 
 export async function fetchArtworks(params?: URLSearchParams): Promise<ArtworksResponse> {
-  const urlSearchParams = new URLSearchParams(params);
-  const response = await fetch(`${URL}/search/?${FIElDS_PARAMS}&${urlSearchParams}`);
+  const response = await fetch(`${URL}/search/?${FIElDS_PARAMS}&${params}`);
 
   if (!response.ok) {
     throw new Error('Failed to connect to the server');

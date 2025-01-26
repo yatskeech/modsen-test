@@ -11,7 +11,7 @@ import {
   StyledTitle,
   StyledWrapper,
 } from './styled.ts';
-import { useCallback, useContext, useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 import { useParams } from 'react-router';
 import { DEFAULT_VALUE } from '@constants';
 import { ArtworksContext } from '@context';
@@ -29,8 +29,8 @@ function ArtworkPage() {
   const { error, loading, data } = useFetch(params);
   const artwork = data as Artwork | null;
 
-  const handleFavorite = useCallback(() => artwork && context?.toggleArtwork(artwork), [artwork, context]);
-  const isFavorite = useMemo(() => (artwork ? Boolean(context?.isFavorite(artwork)) : false), [artwork, context]);
+  const handleFavorite = () => artwork && context?.toggleArtwork(artwork);
+  const isFavorite = artwork ? Boolean(context?.isFavorite(artwork)) : false;
 
   if (loading) {
     return <Loader />;
