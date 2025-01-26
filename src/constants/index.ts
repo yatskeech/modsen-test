@@ -6,7 +6,7 @@ export const ERROR_MESSAGES = {
   NO_FAVORITES: "You don't have any favorite artworks yet.",
 };
 
-export const MAX_ARTWORKS = 1000;
+export const MAX_ARTWORKS = 1000; // Limitation of the Art Institute of Chicago API
 
 export const QUERY_PARAMETERS = {
   SEARCH: 'search',

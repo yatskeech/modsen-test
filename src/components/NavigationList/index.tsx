@@ -1,5 +1,5 @@
-import { StyledBookmarkIcon, StyledHomeIcon, StyledLink, StyledList } from '@components/NavigationList/styled.tsx';
-import { NavigationListProps } from '@components/NavigationList/types.ts';
+import { StyledBookmarkIcon, StyledHomeIcon, StyledLink, StyledList } from './styled.tsx';
+import { NavigationListProps } from './types.ts';
 
 function NavigationList({ className }: NavigationListProps) {
   return (

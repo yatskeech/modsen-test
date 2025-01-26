@@ -8,39 +8,24 @@ export const ArtworksContext = createContext<ArtworksData | null>(null);
 
 export function ArtworksContextProvider({ children }: { children: ReactNode }) {
   const [artworks, setArtworks] = useState<Artwork[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    setLoading(true);
-    const artworkIdsString = localStorage.getItem(ARTWORKS_KEY);
-
-    if (!artworkIdsString) {
-      return;
-    }
-
-    const setFavoriteArtworks = async (artworkIds: Artwork['id'][]) => {
-      try {
-        const favoriteArtworks = await Promise.all(artworkIds.map(fetchArtwork));
-        setArtworks(favoriteArtworks.map((a) => a.data));
-      } catch {
-        setArtworks([]);
-        setError(ERROR_MESSAGES.FETCHING);
-        localStorage.removeItem(ARTWORKS_KEY);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     try {
-      const artworkIds = JSON.parse(artworkIdsString);
+      const artworkIdsString = localStorage.getItem(ARTWORKS_KEY);
+      const artworkIds = JSON.parse(artworkIdsString || '');
 
       if (!Array.isArray(artworkIds)) {
         localStorage.removeItem(ARTWORKS_KEY);
         return;
       }
 
-      setFavoriteArtworks(artworkIds);
+      if (!artworkIds.length) {
+        return;
+      }
+
+      setDefaultArtworks(artworkIds);
     } catch {
       localStorage.removeItem(ARTWORKS_KEY);
     }
@@ -51,6 +36,20 @@ export function ArtworksContextProvider({ children }: { children: ReactNode }) {
     const artworkIds = artworks.map((a) => a.id);
     localStorage.setItem(ARTWORKS_KEY, JSON.stringify(artworkIds));
   }, [artworks]);
+
+  const setDefaultArtworks = async (artworkIds: Artwork['id'][]) => {
+    try {
+      setLoading(true);
+      const favoriteArtworks = await Promise.all(artworkIds.map(fetchArtwork));
+      setArtworks(favoriteArtworks.map((a) => a.data));
+    } catch {
+      setArtworks([]);
+      setError(ERROR_MESSAGES.FETCHING);
+      localStorage.removeItem(ARTWORKS_KEY);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const toggleArtwork = (artwork: Artwork) => {
     setArtworks((artworks) => {
