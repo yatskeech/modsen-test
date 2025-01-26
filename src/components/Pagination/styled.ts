@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import RightArrow from '@assets/icons/arrow-right.svg';
 
 export const StyledWrapper = styled.div`
   display: flex;
@@ -31,6 +32,24 @@ export const StyledButton = styled.button<StyledButtonProps>`
     &:hover {
       color: white;
       background-color: ${({ theme }) => theme.colors.accent};
+
+      & path {
+        stroke: white;
+      }
     }
   }
+`;
+
+export const StyledRightArrow = styled(RightArrow)`
+  width: 20px;
+  height: 20px;
+
+  & path {
+    stroke: ${({ theme }) => theme.colors.primary};
+    transition: 0.3s;
+  }
+`;
+
+export const StyledLeftArrow = styled(StyledRightArrow)`
+  transform: rotate(180deg);
 `;

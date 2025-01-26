@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import {
   StyledWrapper,
   StyledOverlay,
-  StyledOpenButton,
+  StyledButton,
   StyledLine,
   StyledContent,
   StyledNav,
@@ -19,7 +19,13 @@ function Burger() {
   }, [searchParams]);
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : 'auto';
+    if (!isOpen) {
+      document.body.style.overflow = 'auto';
+      return;
+    }
+
+    window.scrollTo(0, 0);
+    document.body.style.overflow = 'hidden';
   }, [isOpen]);
 
   return (
@@ -32,9 +38,9 @@ function Burger() {
           </StyledNav>
         </StyledContent>
       </StyledWrapper>
-      <StyledOpenButton $isOpen={isOpen} onClick={() => setIsOpen((a) => !a)}>
+      <StyledButton $isOpen={isOpen} onClick={() => setIsOpen((a) => !a)}>
         <StyledLine $isOpen={isOpen} />
-      </StyledOpenButton>
+      </StyledButton>
     </>
   );
 }

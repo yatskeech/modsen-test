@@ -15,13 +15,14 @@ export const StyledWrapper = styled.div`
 
 export const StyledOverlay = styled.div<Props>`
   display: ${({ $isOpen }) => ($isOpen ? 'block' : 'none')};
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  bottom: 0;
+  right: 0;
   background-color: rgb(255, 255, 255, 0.75);
   z-index: 10;
+  cursor: pointer;
 `;
 
 export const StyledContent = styled.div<Props>`
@@ -29,8 +30,9 @@ export const StyledContent = styled.div<Props>`
   flex-direction: column;
   width: 70%;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   top: 0;
+  bottom: 0;
   right: 0;
   background-color: ${({ theme }) => theme.colors.primary};
   padding: 120px 32px;
@@ -51,7 +53,7 @@ export const StyledNavigationList = styled(NavigationList)`
   flex-direction: column;
 `;
 
-export const StyledOpenButton = styled.button<Props>`
+export const StyledButton = styled.button<Props>`
   display: none;
 
   &::before,

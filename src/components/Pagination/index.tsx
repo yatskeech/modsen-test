@@ -1,4 +1,4 @@
-import { StyledButton, StyledWrapper } from './styled.ts';
+import { StyledButton, StyledLeftArrow, StyledRightArrow, StyledWrapper } from './styled.ts';
 import { PaginationProps } from './types.ts';
 import { Fragment } from 'react';
 
@@ -17,7 +17,7 @@ function Pagination({ currentPage, totalPages, navigateToPage, closePages = 1, e
     <StyledWrapper>
       {!isFirstPage && (
         <StyledButton onClick={() => navigateToPage(currentPage - 1)} key="prev">
-          &lt;
+          <StyledLeftArrow />
         </StyledButton>
       )}
       {pages.map((page, index) => {
@@ -35,7 +35,7 @@ function Pagination({ currentPage, totalPages, navigateToPage, closePages = 1, e
       })}
       {!isLastPage && (
         <StyledButton onClick={() => navigateToPage(currentPage + 1)} key="next">
-          &gt;
+          <StyledRightArrow />
         </StyledButton>
       )}
     </StyledWrapper>
