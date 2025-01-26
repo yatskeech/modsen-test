@@ -38,7 +38,7 @@ function Burger() {
           </StyledNav>
         </StyledContent>
       </StyledWrapper>
-      <StyledButton $isOpen={isOpen} onClick={() => setIsOpen((a) => !a)}>
+      <StyledButton $isOpen={isOpen} onClick={() => setIsOpen((isOpen) => !isOpen)}>
         <StyledLine $isOpen={isOpen} />
       </StyledButton>
     </>

@@ -13,6 +13,11 @@ function Pagination({ currentPage, totalPages, navigateToPage, closePages = 1, e
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === totalPages;
 
+  const wasPageSkipped = (page: number, index: number) => {
+    const previousPage = pages[index - 1];
+    return page > 1 && page - previousPage !== 1;
+  };
+
   return (
     <StyledWrapper>
       {!isFirstPage && (
@@ -20,19 +25,14 @@ function Pagination({ currentPage, totalPages, navigateToPage, closePages = 1, e
           <StyledLeftArrow />
         </StyledButton>
       )}
-      {pages.map((page, index) => {
-        const previousPage = pages[index - 1];
-        const isSkipped = page > 1 && page - previousPage !== 1;
-
-        return (
-          <Fragment key={page}>
-            {isSkipped && <span key="skip">...</span>}
-            <StyledButton onClick={() => navigateToPage(page)} key={page} $isActive={page == currentPage}>
-              {page}
-            </StyledButton>
-          </Fragment>
-        );
-      })}
+      {pages.map((page, index) => (
+        <Fragment key={page}>
+          {wasPageSkipped(page, index) && <span key="skip">...</span>}
+          <StyledButton key={page} onClick={() => navigateToPage(page)} $isActive={page == currentPage}>
+            {page}
+          </StyledButton>
+        </Fragment>
+      ))}
       {!isLastPage && (
         <StyledButton onClick={() => navigateToPage(currentPage + 1)} key="next">
           <StyledRightArrow />
